@@ -12,12 +12,29 @@ app.use(cookieParser());
 
 
 const PORT = process.env.PORT || 3000;
+
+const allowedOrigins = ['https://prodle.net', 'https://prodle-4u2nlfaqo-john-13-7.vercel.app'];
+
 app.use(cors({
-  origin: 'https://prodle.net',  // allow only this origin
-  credentials: true,  // allow sending of cookies
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS policy: Origin not allowed'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+// app.use(cors({
+//   origin: 'https://prodle.net',  // allow only this origin
+//   credentials: true,  // allow sending of cookies
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+//   allowedHeaders: ["Content-Type", "Authorization"]
+// }));
+
 // //So it can run locally
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "https://prodle.net");
