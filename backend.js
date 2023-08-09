@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
-const router = express.Router();
 const jwt = require("jsonwebtoken");
+const router = express.Router();
 app.use(express.json());
 app.use(cookieParser());
 
