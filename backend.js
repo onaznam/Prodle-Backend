@@ -222,7 +222,7 @@ app.use("/api", router);
 module.exports = router;
 
 app.get("/" , (req,res) => {
-  res.send("Hello to the hiroku");
+  res.send("Hello to the hiroku take 10");
 })
 
 app.listen(PORT, () => {
