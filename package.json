@@ -2,9 +2,9 @@
   "name": "prodle",
   "version": "1.0.0",
   "description": "",
-  "main": "app/backend.js",
+  "main": "./app/backend.js",
   "scripts": {
-    "start": "node app/backend.js",
+    "start": "node ./app/backend.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
