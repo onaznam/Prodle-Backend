@@ -1,19 +1,19 @@
 const express = require("express");
 const app = express();
+const router = express.Router();
 const mongoose = require("mongoose");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-const router = express.Router();
 app.use(express.json());
 app.use(cookieParser());
 
 
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = ['https://prodle.net', 'https://prodle-4u2nlfaqo-john-13-7.vercel.app'];
+const allowedOrigins = ['https://prodle.net', 'https://prodle-4u2nlfaqo-john-13-7.vercel.app', 'https://prodle-john-13-7.vercel.app'];
 
 app.use(cors({
   origin: function(origin, callback) {
