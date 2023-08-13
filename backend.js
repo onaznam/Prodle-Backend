@@ -6,7 +6,6 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
-const cors = require("cors");
 app.use(express.json());
 app.use(cookieParser());
 
@@ -15,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://prodle-backend.vercel.app/);
+  res.header("Access-Control-Allow-Origin", "https://prodle.net");
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS, PATCH"
@@ -211,6 +210,8 @@ app.get("/" , (req,res) => {
   res.send("Hello to the hiroku take 420");
 })
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port: ${PORT}`);
+// });
+module.exports = app;
+
