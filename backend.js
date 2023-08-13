@@ -15,21 +15,29 @@ const PORT = process.env.PORT || 3000;
 
 
 //So it can run locally
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://prodle.net");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS, PATCH"
-  );
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true"); //for tokens
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "https://prodle.net");
+//   res.header(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+//   );
+//   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   res.header("Access-Control-Allow-Credentials", "true"); //for tokens
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+//   if (req.method === "OPTIONS") {
+//     return res.status(200).end();
+//   }
 
-  next();
-});
+//   next();
+// });
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://prodle.net",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 mongoose
   .connect(
