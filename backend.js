@@ -13,44 +13,23 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = ['https://prodle.net', 'https://prodle-4u2nlfaqo-john-13-7.vercel.app', 'https://prodle-john-13-7.vercel.app'];
 
-app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      return callback(new Error('CORS policy: Origin not allowed'), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+//So it can run locally
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://prodle.net/");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+  );
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true"); //for tokens
 
-// app.use(cors({
-//   origin: 'https://prodle.net',  // allow only this origin
-//   credentials: true,  // allow sending of cookies
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-//   allowedHeaders: ["Content-Type", "Authorization"]
-// }));
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
 
-// //So it can run locally
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "https://prodle.net");
-//   res.header(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, DELETE, OPTIONS, PATCH"
-//   );
-//   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   res.header("Access-Control-Allow-Credentials", "true"); //for tokens
-
-//   if (req.method === "OPTIONS") {
-//     return res.status(200).end();
-//   }
-
-//   next();
-// });
+  next();
+});
 
 mongoose
   .connect(
@@ -222,7 +201,7 @@ app.use("/api", router);
 module.exports = router;
 
 app.get("/" , (req,res) => {
-  res.send("Hello to the hiroku take 10");
+  res.send("Hello to the hiroku take 420");
 })
 
 app.listen(PORT, () => {
