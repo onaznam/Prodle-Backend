@@ -41,16 +41,30 @@ mongoose
   .catch((err) => console.log(err));
 
   //token needs to access something
+  // function authenticateToken(req, res, next) {
+  //   const token = req.cookies.jwt;
+  //   if (token == null) return res.sendStatus(401); // if there isn't any token
+  
+  //   jwt.verify(token, process.env.SECRET, (err, user) => {
+  //     if (err) return res.sendStatus(403);
+  //     req.user = user;
+  //     next(); // pass the execution off to whatever request the client intended
+  //   });
+  // }
+
   function authenticateToken(req, res, next) {
     const token = req.cookies.jwt;
+    console.log('Token from cookie:', token); // Log the token
     if (token == null) return res.sendStatus(401); // if there isn't any token
-  
+
     jwt.verify(token, process.env.SECRET, (err, user) => {
-      if (err) return res.sendStatus(403);
-      req.user = user;
-      next(); // pass the execution off to whatever request the client intended
+        console.log('Decoded user:', user); // Log the decoded user
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next(); // pass the execution off to whatever request the client intended
     });
-  }
+}
+
 
 const Schema = mongoose.Schema;
 const WordSchema = new Schema({
@@ -111,9 +125,10 @@ app.post("/register", async (req, res) =>{
 
 //login
 app.post("/login", async (req, res) => {
+  console.log("Login hit");
   const username = req.body.username;
   const user = await Users.findOne({ username: username });
-  
+  console.log("user: ", user);
   if (user === null) {
       return res.status(400).send("Cannot find user");
   }
@@ -186,6 +201,7 @@ app.patch("/updateResults", authenticateToken, async(req, res) =>{
 
 //authenticate user
 router.get("/user", authenticateToken, (req, res) => {
+  console.log("attempting to authenticate user");
   // If the user is authenticated, return their data.
   if (req.user) {
     res.json(req.user);
@@ -199,7 +215,7 @@ app.use("/api", router);
 module.exports = router;
 
 app.get("/" , (req,res) => {
-  res.send("Hello");
+  res.send("Hello 1");
 })
 
 app.listen(PORT, () => {
