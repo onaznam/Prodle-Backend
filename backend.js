@@ -55,7 +55,7 @@ mongoose
   function authenticateToken(req, res, next) {
     const token = req.cookies.jwt;
     console.log('Token from cookie:', token); // Log the token
-    if (token == null) return res.sendStatus(401); // if there isn't any token
+    if (token == null) return res.sendStatus(420); // if there isn't any token
 
     jwt.verify(token, process.env.SECRET, (err, user) => {
         console.log('Decoded user:', user); // Log the decoded user
@@ -215,7 +215,7 @@ app.use("/api", router);
 module.exports = router;
 
 app.get("/" , (req,res) => {
-  res.send("Hello 2");
+  res.send("Hello 420");
 })
 
 app.listen(PORT, () => {
