@@ -28,14 +28,6 @@ app.use((req, res, next) => {
 
   next();
 });
-// const cors = require("cors");
-
-// app.use(cors({
-//   origin: "prodle-9epuc4f7s-john-13-7.vercel.app",
-//   credentials: true,
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-//   allowedHeaders: ["Content-Type", "Authorization"]
-// }));
 
 mongoose
   .connect(
@@ -207,7 +199,7 @@ app.use("/api", router);
 module.exports = router;
 
 app.get("/" , (req,res) => {
-  res.send("Hello to the hiroku take 420");
+  res.send("Hello");
 })
 
 // app.listen(PORT, () => {
