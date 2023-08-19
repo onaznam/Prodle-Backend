@@ -140,7 +140,7 @@ app.post("/login", async (req, res) => {
               process.env.SECRET, 
               { expiresIn: "1hr" }
           );
-          res.cookie("jwt", accessToken, { httpOnly: true, secure: false });
+          res.cookie("jwt", accessToken, { httpOnly: true, secure: true });
           res.status(200).json({ success: true });
       } else {
           res.status(400).send("Invalid password");
@@ -154,7 +154,7 @@ app.post("/login", async (req, res) => {
 //logout
 app.post("/logout", (req, res) => {
   try {
-    res.clearCookie("jwt", { httpOnly: true, secure: false });
+    res.clearCookie("jwt", { httpOnly: true, secure: true });
     res.status(200).send("User logged out");
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -215,7 +215,7 @@ app.use("/api", router);
 module.exports = router;
 
 app.get("/" , (req,res) => {
-  res.send("Hello 1");
+  res.send("Hello 2");
 })
 
 app.listen(PORT, () => {
