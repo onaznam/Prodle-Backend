@@ -43,7 +43,7 @@ mongoose
 function authenticateToken(req, res, next) {
   const token = req.cookies.jwt;
   console.log("Token from cookie:", token); // Log the token
-  if (token == null) return res.sendStatus(420); // if there isn't any token
+  if (token == null) return res.sendStatus(401); // if there isn't any token
 
   jwt.verify(token, process.env.SECRET, (err, user) => {
     console.log("Decoded user:", user); // Log the decoded user
@@ -74,7 +74,7 @@ const TodaysWord = mongoose.model("TodaysWord", TodaysWordSchema, "dailyword");
 
 //Fetches 17.3k words
 //Some of these words are really weird so should just be used to check for input validation
-app.get("/api/words", async (req, res) => {
+app.get("/words", async (req, res) => {
   try {
     // Fetch all words from MongoDB
     const words = await Words.find();
@@ -124,7 +124,7 @@ cron.schedule(
 
 //fetches possible generated daily words
 //here we generate actual possible 6 letter words
-app.get("/api/todaysword", async (req, res) => {
+app.get("/todaysword", async (req, res) => {
   const word = await TodaysWord.find();
   if (word) {
     console.log(word);
