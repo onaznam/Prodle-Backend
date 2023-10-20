@@ -110,7 +110,7 @@ async function getTodaysWord() {
 }
 
 cron.schedule(
-  "54 16 * * *",
+  "0 0 * * *",
   async () => {
     try {
       await getTodaysWord();
